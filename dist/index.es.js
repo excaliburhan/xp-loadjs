@@ -15,9 +15,26 @@ function createLoadJS() {
     if (!options.url) {
       throw new Error('loadjs: you must provide a url');
     }
-    return loadScript(options.selector, createScript(options));
+    if (checkLoaded(options.url)) {
+      return Promise.resolve('loaded');
+    } else {
+      return loadScript(options.selector, createScript(options));
+    }
   }
 
+  // 去除协议
+  function removeProtocol(url) {
+    return url.replace(/^https?:/, '');
+  }
+  // 检查是否已经加载
+  function checkLoaded(url) {
+    url = removeProtocol(url);
+    var tags = Array.prototype.slice.apply(document.getElementsByTagName('script'));
+    var urls = tags.map(function (item) {
+      return removeProtocol(item.src);
+    });
+    return urls.indexOf(url) > -1;
+  }
   // 加载
   function loadScript(selector, script) {
     selector = selector || document.body;
