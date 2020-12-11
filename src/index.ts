@@ -4,7 +4,7 @@
  * @create date 2018-01-17 11:48:00
  * @modify date 2018-01-17 11:48:00
  * @desc [动态加载js]
-*/
+ */
 
 function createLoadJS() {
   // 执行函数
@@ -29,19 +29,17 @@ function createLoadJS() {
   // 检查是否已经加载
   function checkLoaded(url) {
     url = removeProtocol(url);
-    var tags = Array.prototype.slice.apply(document.getElementsByTagName('script'));
-    var urls = tags.map(function (item) {
-      return removeProtocol(item.src);
-    });
+    const tags = Array.prototype.slice.apply(document.getElementsByTagName('script'));
+    const urls = tags.map((item) => removeProtocol(item.src));
     return urls.indexOf(url) > -1;
   }
   // 加载
   function loadScript(selector, script) {
     selector = selector || document.body;
-    return new Promise(function (resolve, reject) {
-      var done = false;
+    return new Promise((resolve, reject) => {
+      let done = false;
       // 处理浏览器兼容
-      script.onload = script.onreadystatechange = function () {
+      script.onload = script.onreadystatechange = () => {
         if (!done && (!script.readyState || script.readyState === 'loaded' || script.readyState === 'complete')) {
           done = true;
           // Handle memory leak in IE
@@ -57,13 +55,22 @@ function createLoadJS() {
 
   // 创建
   function createScript(options) {
-    var script = document.createElement('script');
+    let script = document.createElement('script');
     script.charset = options.charset || 'utf-8';
     script.type = options.type || 'text/javascript';
     script.async = !!options.async;
 
     if (options.url) {
       script.src = options.url;
+    }
+
+    let extraPropMap = options.extraPropMap;
+    if (extraPropMap) {
+      Object.keys(extraPropMap).forEach((k) => {
+        if (extraPropMap[k]) {
+          script[k] = extraPropMap[k];
+        }
+      });
     }
 
     return script;
@@ -74,6 +81,4 @@ function createLoadJS() {
   };
 }
 
-var index = createLoadJS();
-
-export default index;
+export default createLoadJS();

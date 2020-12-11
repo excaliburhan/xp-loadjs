@@ -15,6 +15,15 @@ loadjs('https://cdn.bootcss.com/jquery/3.3.1/jquery.js')
     console.log('load error')
   })
 
+// custom dataset
+// <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js" id="1"></script>
+loadjs({
+  url: 'https://cdn.bootcss.com/jquery/3.3.1/jquery.js',
+  extraPropMap: {
+    id: 1
+  }
+})
+
 // multiple files
 loadjs(['https://cdn.bootcss.com/jquery/3.3.1/jquery.js', 'https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js'])
   .then(() => {
