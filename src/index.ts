@@ -56,7 +56,6 @@ function createLoadJS() {
   // 创建
   function createScript(options) {
     let script = document.createElement('script');
-    script.charset = options.charset || 'utf-8';
     script.type = options.type || 'text/javascript';
     script.async = !!options.async;
 
