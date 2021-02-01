@@ -56,8 +56,6 @@ function createLoadJS() {
   // 创建
   function createScript(options) {
     let script = document.createElement('script');
-    script.type = options.type || 'text/javascript';
-    script.async = !!options.async;
 
     if (options.url) {
       script.src = options.url;
