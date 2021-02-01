@@ -1,6 +1,6 @@
 {
   "name": "xp-loadjs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A tool to load js dynamicly, support promise.",
   "main": "dist/index.js",
   "repository": "git@github.com:excaliburhan/xp-loadjs.git",
